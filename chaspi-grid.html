@@ -1,0 +1,54 @@
+<link rel="import" href="../../ldwebapp/bower_components/polymer/polymer.html">
+<link rel="import" href="grid-header.html">
+<link rel="import" href="grid-row.html">
+<link rel="import" href="grid-cell.html">
+<dom-module id="qnamic-grid">
+	<template>
+		<style is="custom-style">
+			:host {
+				display: table;
+			}
+			.tbody {
+				display: table-row-group;
+			}
+		</style>
+			
+		<content select="grid-header"></content>
+		
+		<div class="tbody">
+			<template is="dom-repeat" items="{{items}}">
+				<grid-row>
+					<template is="dom-repeat" as="column" items={{columns}}>
+						<grid-cell class$="{{getClass(index)}}">[[getText(index, item)]]</grid-cell>
+					</template>
+				</grid-row>
+			</template>
+		</div>
+		
+	</template>
+	<script>
+		Polymer({
+			is : 'qnamic-grid',
+			properties : {
+				trainNote : {
+					type : String,
+					notify : true,
+					observer : '_trainNoteChanged'
+				}
+			},
+			getText : function(index, item) {
+				var renderer = this.columns[index]['renderer']
+				if (renderer) {
+					return renderer(item)
+				}
+				return item[this.columns[index]['property']]
+			},
+			getClass : function(index) {
+				return this.columns[index]['class']
+			},
+			ready : function() {
+				
+			}
+		});
+	</script>
+</dom-module>

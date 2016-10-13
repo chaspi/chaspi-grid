@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+
+	<title>qnamic-grid</title>
+	
+	<script	src="../../../ldwebapp/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="../qnamic-grid.html">
+	
+	<style>
+	
+	</style>
+</head>
+<body>
+
+	<qnamic-grid>
+		<grid-header>
+			<grid-row>
+				<grid-cell>first</grid-cell>
+				<grid-row>last</grid-row>
+			</grid-row>
+			<grid-row>
+				<grid-cell>first2</grid-cell>
+				<grid-row>last2</grid-row>
+			</grid-row>
+		</grid-header>
+	</qnamic-grid>
+
+	<script>
+		var grid = document.querySelector('qnamic-grid');
+		window.addEventListener('WebComponentsReady', function() {
+			grid.items = [
+	            {first: 'Bob', last: 'Smith'},
+	            {first: 'Sally', last: 'Johnson'},
+	            {first: 'Greg', last: 'Deer'}
+          	];
+			grid.columns = [
+	            {property: 'first', 'class': 'a'},
+	            {property: 'last', 'class': 'b', renderer : function(item) {
+	            	return item.last
+	            }}
+	      	];
+		});
+	</script>
+
+</body>
+</html>
