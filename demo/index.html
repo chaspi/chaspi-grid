@@ -19,7 +19,6 @@
 		chaspi-header chaspi-cell {
 			background: grey;
 			padding: 10px;
-			border: thin solid white;
 		}
 		
 		chaspi-grid {
@@ -33,12 +32,21 @@
 				border-bottom: thin solid grey;
 			}
 		}
+
+		chaspi-col {
+			border-right: thin solid grey;
+		}
 	</style>
 </head>
 
 <body>
 
 	<chaspi-grid>
+		<chaspi-colgroup>
+			<chaspi-col>a</chaspi-col>
+			<chaspi-col>b</chaspi-col>
+			<chaspi-col>c</chaspi-col>
+		</chaspi-colgroup>
 		<chaspi-header>
 			<chaspi-row>
 				<chaspi-cell>First: Property</chaspi-cell>
@@ -46,6 +54,13 @@
 				<chaspi-cell>Age: Renderer</chaspi-cell>
 			</chaspi-row>
 		</chaspi-header>
+		<chaspi-footer>
+			<chaspi-row>
+				<chaspi-cell>Footer...</chaspi-cell>
+				<chaspi-cell></chaspi-cell>
+				<chaspi-cell></chaspi-cell>
+			</chaspi-row>
+		</chaspi-footer>
 	</chaspi-grid>
 
 	<script>

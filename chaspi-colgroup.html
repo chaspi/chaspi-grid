@@ -1,11 +1,10 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="chaspi-cell.html">
-<dom-module id="chaspi-row">
+<link rel="import" href="chaspi-col.html">
+<dom-module id="chaspi-colgroup">
 	<template>
 		<style is="custom-style">
 			:host {
-				display: table-row;
-				@apply(--chaspi-row);
+				display: table-column-group;
 			}
 		</style>
 		
@@ -14,7 +13,7 @@
 	</template>
 	<script>
 		Polymer({
-			is : 'chaspi-row'
+			is : 'chaspi-colgroup'
 		});
 	</script>
 </dom-module>

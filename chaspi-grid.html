@@ -1,7 +1,9 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="chaspi-colgroup.html">
 <link rel="import" href="chaspi-header.html">
+<link rel="import" href="chaspi-footer.html">
 <link rel="import" href="chaspi-row.html">
-<link rel="import" href="chaspi-cell.html">
+
 <dom-module id="chaspi-grid">
 	<template>
 		<style is="custom-style">
@@ -11,9 +13,10 @@
 			
 			.tbody {
 				display: table-row-group;
-			}			
+			}
 		</style>
 
+		<content select="chaspi-colgroup"></content>
 		<content select="chaspi-header"></content>
 
 		<div class="tbody">
@@ -25,6 +28,8 @@
 				</chaspi-row>
 			</template>
 		</div>
+
+		<content select="chaspi-footer"></content>
 
 	</template>
 	<script>
