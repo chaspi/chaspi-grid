@@ -29,7 +29,7 @@
 			<chaspi-colgroup>
 				<chaspi-col property="first" min-width=200 column-class="a"></chaspi-col>
 				<chaspi-col property="last" content-provider="{{lastProvider}}"></chaspi-col>
-				<chaspi-col property="age" renderer="{{ageRenderer}}"></chaspi-col>
+				<chaspi-col property="age" renderer="{{ageRenderer}}" on-tap="handleTap"></chaspi-col>
 			</chaspi-colgroup>
 			<chaspi-header>
 				<chaspi-row>
@@ -52,6 +52,9 @@
 	<script>
 		Polymer({
 			is : 'my-grid',
+			handleTap : function(event, args) {
+				alert("age: " + args.item.age);
+			},
 			ready : function() {
 				this.items = [
 					{first: 'Bob', last: 'Smith', age: 31},

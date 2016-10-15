@@ -36,14 +36,10 @@
 		Polymer({
 			is : 'chaspi-grid',
 			properties : {
-				items : Object,
-				tapListener : Object
+				items : Object
 			},
 			handleTap: function(e) {
-		        var tapListener = e.model.column.tapListener
-		        if (tapListener) {
-		        	tapListener(e.target, e.model.item)
-		        }
+		    	e.model.column.tapListener(e.target, e.model.item)
 			},
 			getContent : function(column, item) {
 				return column.getContents(item)

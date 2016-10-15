@@ -20,7 +20,14 @@
 				renderer : Object,
 				contentProvider : Object,
 				minWidth : Number,
-				width : Number
+				width : Number,
+				tapListener : Object
+			},
+			tapListener : function(target, item) {
+				this.fire('tap', {
+					'target': target,
+					'item': item
+				});
 			},
 			getContents : function(item) {
 				if (this.renderer) {
