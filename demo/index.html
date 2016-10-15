@@ -7,10 +7,31 @@
 
 	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 	<link rel="import" href="../chaspi-grid.html">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+
 
 	<style>
 		.a {
-			width: 50px;
+			background: orange;
+		}
+	</style>
+	<style is="custom-style">
+		chaspi-header chaspi-cell {
+			background: grey;
+			padding: 10px;
+			border: thin solid white;
+		}
+		
+		chaspi-grid {
+			font-family: 'Open Sans';
+			border: thin solid grey;
+			border-collapse: collapse;
+			--chaspi-cell: {
+				padding: 10px;
+			}
+			--chaspi-row: {
+				border-bottom: thin solid grey;
+			}
 		}
 	</style>
 </head>
@@ -20,9 +41,9 @@
 	<chaspi-grid>
 		<chaspi-header>
 			<chaspi-row>
-				<chaspi-cell>first from property</chaspi-cell>
-				<chaspi-cell>last from contentProvider</chaspi-cell>
-				<chaspi-cell>age from renderer</chaspi-cell>
+				<chaspi-cell>First: Property</chaspi-cell>
+				<chaspi-cell>Last: ContentProvider</chaspi-cell>
+				<chaspi-cell>Age: Renderer</chaspi-cell>
 			</chaspi-row>
 		</chaspi-header>
 	</chaspi-grid>
@@ -42,7 +63,7 @@
 					renderer : function(item) {
 						return {
 							text: item.age,
-							style: "border-bottom: thin solid black",
+							style: "font-weight:bold;",
 							class: 'a'
 						}
 					}

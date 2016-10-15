@@ -4,6 +4,7 @@
 		<style is="custom-style">
 			:host {
 				display: table-cell;
+				@apply(--chaspi-cell)
 			}
 		</style>
 		
@@ -18,12 +19,9 @@
 					type : String,
 					notify : true,
 					observer : '_contentChanged'
-				}
-			},
-			_contentChanged: function() {
-		        // WARNING: potential XSS vulnerability if `html` comes from an untrusted source
-		    	this.innerHTML = this.content;
-		    }
+				},
+				renderHtml : false
+			}
 		});
 	</script>
 </dom-module>

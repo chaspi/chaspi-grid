@@ -11,15 +11,7 @@
 			
 			.tbody {
 				display: table-row-group;
-			}
-			
-			chaspi-row {
-				@apply(--chaspi-chaspi-row);
-			}
-			
-			chaspi-cell {
-				@apply(--chaspi-chaspi-cell);
-			}
+			}			
 		</style>
 
 		<content select="chaspi-header"></content>
@@ -62,7 +54,7 @@
 			getClass : function(column, item) {
 				var renderer = column.renderer
 				if (renderer) {
-					return renderer(item).class
+					return renderer(item)['class']
 				}
 				var classProvider = column.classProvider
 				if (classProvider) {
