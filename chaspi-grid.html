@@ -16,13 +16,13 @@
 			}
 		</style>
 
-		<content select="chaspi-colgroup"></content>
+		<content id="colgroups" select="chaspi-colgroup"></content>
 		<content select="chaspi-header"></content>
 
 		<div class="tbody">
 			<template is="dom-repeat" items="{{items}}">
 				<chaspi-row>
-					<template is="dom-repeat" as="column" items={{columns}}>
+					<template is="dom-repeat" as="column" items={{getCols()}}>
 						<chaspi-cell on-tap="handleTap" style$="{{getStyle(column, item)}}" class$="{{getClass(column, item)}}" content$="[[getContent(column, item)]]"></chaspi-cell>
 					</template>
 				</chaspi-row>
@@ -37,7 +37,7 @@
 			is : 'chaspi-grid',
 			properties : {
 				items : Object,
-				columns : Object
+				tapListener : Object
 			},
 			handleTap: function(e) {
 		        var tapListener = e.model.column.tapListener
@@ -46,56 +46,24 @@
 		        }
 			},
 			getContent : function(column, item) {
-				var renderer = column.renderer
-				if (renderer) {
-					return renderer(item).text
-				}
-				var contentProvider = column.contentProvider
-				if (contentProvider) {
-					return contentProvider(item)
-				}
-				return item[column.property]
+				return column.getContents(item)
 			},
 			getClass : function(column, item) {
-				var renderer = column.renderer
-				if (renderer) {
-					return renderer(item)['class']
-				}
-				var classProvider = column.classProvider
-				if (classProvider) {
-					return classProvider(item)
-				}
-				var clazz = column['class']
-				if (clazz) {
-					return clazz
-				}
+				return column.getClass(item)
 			},
 			getStyle : function(column, item) {
-				var baseStyle = ''
-				var minWidth = column.minWidth
-				if (minWidth) {
-					baseStyle += 'min-width:' + minWidth + 'px;'
-				}
-				var width = column.width
-				if (width) {
-					baseStyle += 'width:' + width + 'px;'
-				}
-				var renderer = column.renderer
-				if (renderer) {
-					return baseStyle + renderer(item).style
-				}
-				var styleProvider = column.styleProvider
-				if (styleProvider) {
-					return baseStyle + styleProvider(item)
-				}
-				var style = column.style
-				if (style) {
-					return baseStyle + style
-				}
-				return baseStyle;
+				return column.getStyle(item)
 			},
-			ready : function() {
-				
+			getCols : function() {
+				var distributed = this.getContentChildren('#colgroups');
+				if (distributed.length < 1) {
+					throw "No columns defined!";
+				}
+				var cols = []
+				distributed.forEach(function(entry) {
+					cols.push.apply(cols, entry.queryAllEffectiveChildren('chaspi-col'));
+				});
+				return cols
 			}
 		});
 	</script>

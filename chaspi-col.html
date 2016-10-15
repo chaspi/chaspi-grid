@@ -12,7 +12,55 @@
 	</template>
 	<script>
 		Polymer({
-			is : 'chaspi-col'
+			is : 'chaspi-col',
+			properties : {
+				property : String,
+				columnClass : String,
+				columnStyle : String,
+				renderer : Object,
+				contentProvider : Object,
+				minWidth : Number,
+				width : Number
+			},
+			getContents : function(item) {
+				if (this.renderer) {
+					return this.renderer(item).content
+				}
+				if (this.contentProvider) {
+					return this.contentProvider(item)
+				}
+				return item[this.property]
+			},
+			getClass : function(item) {
+				if (this.renderer) {
+					return this.renderer(item)['class']
+				}
+				if (this.classProvider) {
+					return this.classProvider(item)
+				}
+				if (this.columnClass) {
+					return this.columnClass
+				}
+			},
+			getStyle : function(item) {
+				var baseStyle = ''
+				if (this.minWidth) {
+					baseStyle += 'min-width:' + this.minWidth + 'px;'
+				}
+				if (this.width) {
+					baseStyle += 'width:' + this.width + 'px;'
+				}
+				if (this.renderer) {
+					return baseStyle + this.renderer(item).style
+				}
+				if (this.styleProvider) {
+					return baseStyle + this.styleProvider(item)
+				}
+				if (this.columnStyle) {
+					return baseStyle + this.columnStyle
+				}
+				return baseStyle;
+			}
 		});
 	</script>
 </dom-module>

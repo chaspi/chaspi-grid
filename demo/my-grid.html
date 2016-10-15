@@ -1,0 +1,72 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../chaspi-grid.html">
+<dom-module id="my-grid">
+	<template>
+		<style is="custom-style">
+			chaspi-header chaspi-cell {
+				background: grey;
+				padding: 10px;
+			}
+			
+			chaspi-grid {
+				font-family: 'Open Sans';
+				border: thin solid grey;
+				border-collapse: collapse;
+				--chaspi-cell: {
+					padding: 10px;
+				}
+				--chaspi-row: {
+					border-bottom: thin solid grey;
+				}
+			}
+			
+			chaspi-col {
+				border-right: thin solid grey;
+			}
+		</style>
+
+		<chaspi-grid items="{{items}}">
+			<chaspi-colgroup>
+				<chaspi-col property="first" min-width=200 column-class="a"></chaspi-col>
+				<chaspi-col property="last" content-provider="{{lastProvider}}"></chaspi-col>
+				<chaspi-col property="age" renderer="{{ageRenderer}}"></chaspi-col>
+			</chaspi-colgroup>
+			<chaspi-header>
+				<chaspi-row>
+					<chaspi-cell>First: Property</chaspi-cell>
+					<chaspi-cell>Last: ContentProvider</chaspi-cell>
+					<chaspi-cell>Age: Renderer</chaspi-cell>
+				</chaspi-row>
+			</chaspi-header>
+			<chaspi-footer>
+				<chaspi-row>
+					<chaspi-cell>Footer...</chaspi-cell>
+					<chaspi-cell></chaspi-cell>
+					<chaspi-cell></chaspi-cell>
+				</chaspi-row>
+			</chaspi-footer>
+		</chaspi-grid>
+
+
+	</template>
+	<script>
+		Polymer({
+			is : 'my-grid',
+			ready : function() {
+				this.items = [
+					{first: 'Bob', last: 'Smith', age: 31},
+					{first: 'Sally', last: 'Johnson', age: 24},
+					{first: 'Greg', last: 'Deer', age: 63}
+				]
+				this.lastProvider = function(item) {return item.last}
+				this.ageRenderer = function(item) {
+					return {
+						content: item.age,
+						style: 'font-weight:bold;',
+						class: 'a'
+					}
+				}
+			}
+		});
+	</script>
+</dom-module>
