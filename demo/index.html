@@ -1,47 +1,56 @@
 <!doctype html>
 <html>
+
 <head>
 
-	<title>qnamic-grid</title>
-	
-	<script	src="../../../ldwebapp/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-	<link rel="import" href="../qnamic-grid.html">
-	
+	<title>chaspi-grid</title>
+
+	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="../chaspi-grid.html">
+
 	<style>
-	
+		.a {
+			width: 50px;
+		}
 	</style>
 </head>
+
 <body>
 
-	<qnamic-grid>
-		<grid-header>
-			<grid-row>
-				<grid-cell>first</grid-cell>
-				<grid-row>last</grid-row>
-			</grid-row>
-			<grid-row>
-				<grid-cell>first2</grid-cell>
-				<grid-row>last2</grid-row>
-			</grid-row>
-		</grid-header>
-	</qnamic-grid>
+	<chaspi-grid>
+		<chaspi-header>
+			<chaspi-row>
+				<chaspi-cell>first from property</chaspi-cell>
+				<chaspi-cell>last from contentProvider</chaspi-cell>
+				<chaspi-cell>age from renderer</chaspi-cell>
+			</chaspi-row>
+		</chaspi-header>
+	</chaspi-grid>
 
 	<script>
-		var grid = document.querySelector('qnamic-grid');
+		var grid = document.querySelector('chaspi-grid');
 		window.addEventListener('WebComponentsReady', function() {
 			grid.items = [
-	            {first: 'Bob', last: 'Smith'},
-	            {first: 'Sally', last: 'Johnson'},
-	            {first: 'Greg', last: 'Deer'}
+	            {first: 'Bob', last: 'Smith', age: 31},
+	            {first: 'Sally', last: 'Johnson', age: 24},
+	            {first: 'Greg', last: 'Deer', age: 63}
           	];
 			grid.columns = [
-	            {property: 'first', 'class': 'a'},
-	            {property: 'last', 'class': 'b', renderer : function(item) {
-	            	return item.last
-	            }}
+	            {property: 'first', 'class' : 'a'},
+				{property: 'last', contentProvider : function(item) {return item.last}},
+				{property: 'age',
+					renderer : function(item) {
+						return {
+							text: item.age,
+							style: "border-bottom: thin solid black",
+							class: 'a'
+						}
+					}
+				},
 	      	];
 		});
 	</script>
 
 </body>
+
 </html>

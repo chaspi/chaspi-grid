@@ -1,50 +1,101 @@
-<link rel="import" href="../../ldwebapp/bower_components/polymer/polymer.html">
-<link rel="import" href="grid-header.html">
-<link rel="import" href="grid-row.html">
-<link rel="import" href="grid-cell.html">
-<dom-module id="qnamic-grid">
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="chaspi-header.html">
+<link rel="import" href="chaspi-row.html">
+<link rel="import" href="chaspi-cell.html">
+<dom-module id="chaspi-grid">
 	<template>
 		<style is="custom-style">
 			:host {
 				display: table;
 			}
+			
 			.tbody {
 				display: table-row-group;
 			}
-		</style>
 			
-		<content select="grid-header"></content>
-		
+			chaspi-row {
+				@apply(--chaspi-chaspi-row);
+			}
+			
+			chaspi-cell {
+				@apply(--chaspi-chaspi-cell);
+			}
+		</style>
+
+		<content select="chaspi-header"></content>
+
 		<div class="tbody">
 			<template is="dom-repeat" items="{{items}}">
-				<grid-row>
+				<chaspi-row>
 					<template is="dom-repeat" as="column" items={{columns}}>
-						<grid-cell class$="{{getClass(index)}}">[[getText(index, item)]]</grid-cell>
+						<chaspi-cell on-tap="handleTap" style$="{{getStyle(column, item)}}" class$="{{getClass(column, item)}}" content$="[[getContent(column, item)]]"></chaspi-cell>
 					</template>
-				</grid-row>
+				</chaspi-row>
 			</template>
 		</div>
-		
+
 	</template>
 	<script>
 		Polymer({
-			is : 'qnamic-grid',
+			is : 'chaspi-grid',
 			properties : {
-				trainNote : {
-					type : String,
-					notify : true,
-					observer : '_trainNoteChanged'
-				}
+				items : Object,
+				columns : Object
 			},
-			getText : function(index, item) {
-				var renderer = this.columns[index]['renderer']
+			handleTap: function(e) {
+		        var tapListener = e.model.column.tapListener
+		        if (tapListener) {
+		        	tapListener(e.target, e.model.item)
+		        }
+			},
+			getContent : function(column, item) {
+				var renderer = column.renderer
 				if (renderer) {
-					return renderer(item)
+					return renderer(item).text
 				}
-				return item[this.columns[index]['property']]
+				var contentProvider = column.contentProvider
+				if (contentProvider) {
+					return contentProvider(item)
+				}
+				return item[column.property]
 			},
-			getClass : function(index) {
-				return this.columns[index]['class']
+			getClass : function(column, item) {
+				var renderer = column.renderer
+				if (renderer) {
+					return renderer(item).class
+				}
+				var classProvider = column.classProvider
+				if (classProvider) {
+					return classProvider(item)
+				}
+				var clazz = column['class']
+				if (clazz) {
+					return clazz
+				}
+			},
+			getStyle : function(column, item) {
+				var baseStyle = ''
+				var minWidth = column.minWidth
+				if (minWidth) {
+					baseStyle += 'min-width:' + minWidth + 'px;'
+				}
+				var width = column.width
+				if (width) {
+					baseStyle += 'width:' + width + 'px;'
+				}
+				var renderer = column.renderer
+				if (renderer) {
+					return baseStyle + renderer(item).style
+				}
+				var styleProvider = column.styleProvider
+				if (styleProvider) {
+					return baseStyle + styleProvider(item)
+				}
+				var style = column.style
+				if (style) {
+					return baseStyle + style
+				}
+				return baseStyle;
 			},
 			ready : function() {
 				

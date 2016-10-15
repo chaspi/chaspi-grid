@@ -1,0 +1,25 @@
+{
+  "name": "chaspi-grid",
+  "version": "0.1.0",
+  "homepage": "https://github.com/chaspi/chaspi-grid",
+  "authors": [
+    "Dominik Kaspar <dominik.kaspar@yahoo.de>"
+  ],
+  "description": "dynamic table",
+  "main": "chaspi-grid.html",
+  "keywords": [
+    "grid",
+    "table"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0"
+  }
+}
