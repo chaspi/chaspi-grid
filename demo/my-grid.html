@@ -28,7 +28,7 @@
 		<chaspi-grid items="{{items}}">
 			<chaspi-colgroup>
 				<chaspi-col property="first" min-width=200 column-class="a"></chaspi-col>
-				<chaspi-col property="last" content-provider="{{lastProvider}}"></chaspi-col>
+				<chaspi-col property="last" content-provider="{{lastContentProvider}}" style-provider="{{lastStyleProvider}}"></chaspi-col>
 				<chaspi-col property="age" renderer="{{ageRenderer}}" on-tap="handleTap"></chaspi-col>
 			</chaspi-colgroup>
 			<chaspi-header>
@@ -61,7 +61,8 @@
 					{first: 'Sally', last: 'Johnson', age: 24},
 					{first: 'Greg', last: 'Deer', age: 63}
 				]
-				this.lastProvider = function(item) {return item.last}
+				this.lastContentProvider = function(item) {return item.last}
+				this.lastStyleProvider = function(item) {return "color:red;"}
 				this.ageRenderer = function(item) {
 					return {
 						content: item.age,
