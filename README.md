@@ -1,3 +1,7 @@
+_[Demo and API docs](https://chaspi.github.io/chaspi-grid/)_
+
+##&lt;chaspi-grid&gt;
+
 `<chaspi-grid>` is a simple html table which dynamically renders itslef according to the binded data.
 
 To achieve this dynamic behaviour, a column model must be provided. This column model knows about how to get the
@@ -84,5 +88,3 @@ Custom property | Description | Default
 ----------------|-------------|----------
 `--chaspi-row` | Style of the rows it the table | `{}`
 `--chaspi-cell` | Style of cells in the table | `{}`
-
-@demo demo/index.html
