@@ -29,7 +29,7 @@
 			<chaspi-colgroup>
 				<chaspi-col property="first" min-width=200 column-class="a"></chaspi-col>
 				<chaspi-col property="last" content-provider="{{lastContentProvider}}" style-provider="{{lastStyleProvider}}"></chaspi-col>
-				<chaspi-col property="age" renderer="{{ageRenderer}}" on-tap="handleTap"></chaspi-col>
+				<chaspi-col property="age" renderer="{{ageRenderer}}" render-html="true" on-tap="handleTap"></chaspi-col>
 			</chaspi-colgroup>
 			<chaspi-header>
 				<chaspi-row>
@@ -65,7 +65,7 @@
 				this.lastStyleProvider = function(item) {return "color:red;"}
 				this.ageRenderer = function(item) {
 					return {
-						content: item.age,
+						content: '<div>' + item.age + '</div>',
 						style: 'font-weight:bold;',
 						class: 'a'
 					}

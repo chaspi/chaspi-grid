@@ -23,7 +23,12 @@
 			<template is="dom-repeat" items="{{items}}">
 				<chaspi-row>
 					<template is="dom-repeat" as="column" items={{getCols()}}>
-						<chaspi-cell on-tap="handleTap" style$="{{getStyle(column, item)}}" class$="{{getClass(column, item)}}" content$="[[getContent(column, item)]]"></chaspi-cell>
+						<template is="dom-if" if="{{column.renderHtml}}">
+							<chaspi-cell on-tap="handleTap" style$="{{getStyle(column, item)}}" class$="{{getClass(column, item)}}" content$="[[getContent(column, item)]]"></chaspi-cell>
+						</template>
+						<template is="dom-if" if="{{!column.renderHtml}}">
+							<chaspi-cell on-tap="handleTap" style$="{{getStyle(column, item)}}" class$="{{getClass(column, item)}}">[[getContent(column, item)]]</chaspi-cell>
+						</template>
 					</template>
 				</chaspi-row>
 			</template>
