@@ -1,7 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 
 <!--
-`<chaspi-col>` represents a `<col>` element of a table. In addition to that, for the chaspi-grid it 
+`<chaspi-col>` represents a `<col>` element of a table. In addition to that, for the `chaspi-grid` it 
 represents the column model of the table.
 
 In typical use, the `<chaspi-col>` must be a child of `<chaspi-colgroup>`:
@@ -61,7 +61,7 @@ In typical use, the `<chaspi-col>` must be a child of `<chaspi-colgroup>`:
 				/**
 				 * The renderer is a function which can provide the content, the style, and the style class for a cell.
 				 *
-				 * @type {function(*):{content:string, style:text, class:text}}
+				 * @type {{function(*):{content:string, style:text, class:text}}}
 				 */
 				cellRenderer : Object,
 
@@ -76,7 +76,7 @@ In typical use, the `<chaspi-col>` must be a child of `<chaspi-colgroup>`:
 				/**
 				 * Listener to observe tap events from the cell.
 				 *
-				 * @type {function(HTMLElement,Object)} 
+				 * @type {{function(HTMLElement,Object)}}
 				 */
 				cellTapListener : Object
 			},
@@ -93,20 +93,30 @@ In typical use, the `<chaspi-col>` must be a child of `<chaspi-colgroup>`:
 				// this.style.minWidth = minWidth + "px"
 			},
 
-			/**
-			 * Fired when the user taps on a cell
-			 *
-			 * @event tap
-			 * @param {{target:object, item:object}} the target element and the row data.
-			 */
-
-			cellTapListener : function(target, item) {
+            /**
+             * Triggers a cell tap event. This method is called from `<chaspi-grid>`.
+             * By default this method fires an `tab` event.
+             *
+             * @param {HTMLElement} target The element which fired the tab event.
+             * @param {*} item The row data.
+             */
+            fireCellTapEvent : function(target, item) {
+                if (this.cellTapListener) {
+                    this.cellTapListener(target, item)
+                }
 				this.fire('tap', {
 					'target': target,
 					'item': item
 				});
 			},
-			getContent : function(item) {
+
+            /**
+             * Returns the cell content by using the given item.
+             *
+             * @param {*} item The row data.
+             * @return {String} the cell content
+             */
+			getCellContent : function(item) {
 				if (this.cellRenderer) {
 					var content = this.cellRenderer(item).content
 					if (content != null) {
@@ -115,7 +125,14 @@ In typical use, the `<chaspi-col>` must be a child of `<chaspi-colgroup>`:
 				}
 				return item[this.property]
 			},
-			getClass : function(item) {
+
+            /**
+             * Returns the cell style class by using the given item.
+             *
+             * @param {*} item The row data.
+             * @return {String} the cell style class
+             */
+			getCellClass : function(item) {
 				if (this.cellRenderer) {
 					var styleClass = this.cellRenderer(item)['class']
 					if (styleClass != null) {
@@ -126,7 +143,14 @@ In typical use, the `<chaspi-col>` must be a child of `<chaspi-colgroup>`:
 					return this.cellClass
 				}
 			},
-			getStyle : function(item) {
+
+            /**
+             * Returns the cell style by using the given item.
+             *
+             * @param {*} item The row data.
+             * @return {String} the cell style
+             */
+			getCellStyle : function(item) {
 				/*
 				 * On most browsers min-width is not supported on the column itself,
 				 * therefore apply it on column directly.
@@ -148,6 +172,13 @@ In typical use, the `<chaspi-col>` must be a child of `<chaspi-colgroup>`:
 				}
 				return baseStyle;
 			}
+            
+            /**
+			 * Fired when the user taps on a cell.
+			 *
+			 * @event tap
+			 * @param {{target:object, item:object}} the target element and the row data.
+			 */
 		});
 	</script>
 </dom-module>
