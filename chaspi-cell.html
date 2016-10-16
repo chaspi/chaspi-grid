@@ -1,4 +1,23 @@
 <link rel="import" href="../polymer/polymer.html">
+
+<!--
+`<chaspi-cell>` represents a `<td>` element of a table.
+
+In typical use, the `<chaspi-cell>` must be a child of `<chaspi-row>`:
+
+    <chaspi-row>
+    	<chaspi-cell></chaspi-cell>
+
+### Styling
+
+`<chaspi-cell>` provides the following custom properties and mixins
+for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--chaspi-cell` | Style of the cell | `{}`
+
+-->
 <dom-module id="chaspi-cell">
 	<template>
 		<style is="custom-style">
@@ -15,6 +34,10 @@
 		Polymer({
 			is : 'chaspi-cell',
 			properties : {
+
+				/**
+				 * The content of this cell.
+				 */
 				content : {
 					type : String,
 					notify : true,

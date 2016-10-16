@@ -9,6 +9,7 @@
 			}
 			
 			chaspi-grid {
+				width: 100%;
 				font-family: 'Open Sans';
 				border: thin solid grey;
 				border-collapse: collapse;
@@ -27,15 +28,15 @@
 
 		<chaspi-grid items="{{items}}">
 			<chaspi-colgroup>
-				<chaspi-col property="first" min-width=200 column-class="a"></chaspi-col>
-				<chaspi-col property="last" content-provider="{{lastContentProvider}}" style-provider="{{lastStyleProvider}}"></chaspi-col>
-				<chaspi-col property="age" renderer="{{ageRenderer}}" render-html="true" on-tap="handleTap"></chaspi-col>
+				<chaspi-col property="first" min-width=150 cell-class="a"></chaspi-col>
+				<chaspi-col property="last" cell-renderer="{{lastRenderer}}" cell-style="color:red;"></chaspi-col>
+				<chaspi-col property="age" cell-renderer="{{ageRenderer}}" render-html="true" on-tap="handleTap"></chaspi-col>
 			</chaspi-colgroup>
 			<chaspi-header>
 				<chaspi-row>
-					<chaspi-cell>First: Property</chaspi-cell>
-					<chaspi-cell>Last: ContentProvider</chaspi-cell>
-					<chaspi-cell>Age: Renderer</chaspi-cell>
+					<chaspi-cell>First</chaspi-cell>
+					<chaspi-cell>Last</chaspi-cell>
+					<chaspi-cell>Age</chaspi-cell>
 				</chaspi-row>
 			</chaspi-header>
 			<chaspi-footer>
@@ -61,8 +62,11 @@
 					{first: 'Sally', last: 'Johnson', age: 24},
 					{first: 'Greg', last: 'Deer', age: 63}
 				]
-				this.lastContentProvider = function(item) {return item.last}
-				this.lastStyleProvider = function(item) {return "color:red;"}
+				this.lastRenderer = function(item) {
+					return {
+						content: '<' + item.last + '>'
+					}
+				}
 				this.ageRenderer = function(item) {
 					return {
 						content: '<div>' + item.age + '</div>',

@@ -1,10 +1,19 @@
 <link rel="import" href="../polymer/polymer.html">
+
+<!--
+`<chaspi-footer>` represents a `<tfoot>` element of a table.
+
+In typical use, the `<chaspi-footer>` must be a child of `<chaspi-grid>`:
+
+    <chaspi-grid>
+    	<chaspi-footer></chaspi-footer>
+
+-->
 <dom-module id="chaspi-footer">
 	<template>
 		<style is="custom-style">
 			:host {
 				display: table-footer-group;
-				@apply(--chaspi-footer);
 			}
 		</style>
 		
