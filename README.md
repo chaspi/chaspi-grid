@@ -2,12 +2,12 @@ _[Demo and API docs](https://chaspi.github.io/chaspi-grid/)_
 
 ##&lt;chaspi-grid&gt;
 
-`<chaspi-grid>` is a simple html table which dynamically renders itslef according to the binded data.
+`<chaspi-grid>` is a simple html table which dynamically renders itself according to the bind data.
 
-To achieve this dynamic behaviour, a column model must be provided. This column model knows about how to get the
+To achieve this dynamic behavior, a column model must be provided. This column model knows about how to get the
 data out of the main model to place it in the table cell. It can be defined by using the `<chaspi-col>` element.
 
-In the simpelest case the property attribute defines the name of the property on the row data which belongs to the cell:
+In the most simple case the property attribute defines the name of the property on the row data which belongs to the cell:
 
     <chaspi-col property="name"></chaspi-col>
 
@@ -63,14 +63,14 @@ The grid can also contain headers and footers:
                 ...
 
 The current implementation does not use `<table>`, `<tr>`, `<td>` elements. Instead it uses `<div>` elements and the 
-table elements corresponding display css property. This is because IE and FF do not support `dom-repeat` inside a
-`<table>` element. Therfeore the grid cannot support colspan at the moment.
+table elements corresponding display CSS property. This is because IE and FF do not support `dom-repeat` inside a
+`<table>` element. Therefore the grid cannot support colspan at the moment.
 
 ### Styling
 
 Style the grid with CSS as you would a normal DOM element.
 
-To style the haeder:
+To style the header:
 
     chaspi-header {
         padding: 10px;
