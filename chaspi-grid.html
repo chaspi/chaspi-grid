@@ -91,6 +91,7 @@ Custom property | Description | Default
 ----------------|-------------|----------
 `--chaspi-row` | Style of the rows it the table | `{}`
 `--chaspi-cell` | Style of cells in the table | `{}`
+`--chaspi-header-shadow` | Style for the header shadow | `{box-shadow: inset 0px 5px 6px -3px rgba(0, 0, 0, 0.4)}`
 
 @demo demo/index.html
 -->
@@ -104,10 +105,37 @@ Custom property | Description | Default
 			.tbody {
 				display: table-row-group;
 			}
+			
+			.shadow-row-wrapper {
+				position: relative;
+				height: 0px;
+				padding: 0;
+				maring: 0;
+			}
+			
+			.shadow-row {
+				box-shadow: inset 0px 5px 6px -3px rgba(0, 0, 0, 0.4);
+				@apply(--chaspi-header-shadow);
+				position: absolute;
+				top: 0px;
+				left: 0;
+				right: 0;
+				height: 6px !important;
+				pointer-events: none;
+				-webkit-transition: opacity 0.5s;
+				transition: opacity 0.5s;
+			}
 		</style>
 
 		<content id="colgroups" select="chaspi-colgroup"></content>
 		<content select="chaspi-header"></content>
+		<chaspi-row>
+			<template is="dom-repeat" as="column" items={{getColumns()}}>
+				<chaspi-cell class="shadow-row-wrapper">
+					<div class="shadow-row"></div>
+				</chaspi-cell>
+			</template>
+		</chaspi-row>
 
 		<div class="tbody">
 			<template is="dom-repeat" items="{{items}}">
