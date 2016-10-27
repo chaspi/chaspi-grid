@@ -1,4 +1,4 @@
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../../ldwebapp/bower_components/polymer/polymer.html">
 
 <!--
 `<chaspi-col>` represents a `<col>` element of a table. In addition to that, for the `chaspi-grid` it 
@@ -133,15 +133,17 @@ In typical use, the `<chaspi-col>` must be a child of `<chaspi-colgroup>`:
              * @return {String} the cell style class
              */
 			getCellClass : function(item) {
+				var styleClasses = ''
 				if (this.cellRenderer) {
 					var styleClass = this.cellRenderer(item)['class']
 					if (styleClass != null) {
-						return styleClass
+						styleClasses += styleClass
 					}
 				}
 				if (this.cellClass) {
-					return this.cellClass
+					styleClasses += (styleClasses ? ' ' : '') + this.cellClass
 				}
+				return styleClasses
 			},
 
             /**
@@ -161,15 +163,16 @@ In typical use, the `<chaspi-col>` must be a child of `<chaspi-colgroup>`:
 				if (this.minWidth) {
 					baseStyle += 'min-width:' + this.minWidth + 'px;'
 				}
+				if (this.cellStyle) {
+					baseStyle += this.cellStyle
+				}
 				if (this.cellRenderer) {
 					var style = this.cellRenderer(item).style
 					if (style != null) {
 						return baseStyle + style
 					}		
 				}
-				if (this.cellStyle) {
-					return baseStyle + this.cellStyle
-				}
+				
 				return baseStyle;
 			}
             
