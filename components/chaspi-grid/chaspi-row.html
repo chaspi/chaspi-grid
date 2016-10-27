@@ -1,0 +1,44 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="chaspi-cell.html">
+
+<!--
+`<chaspi-row>` represents a `<tr>` element of a table.
+
+In typical use, the `<chaspi-row>` must be a child of `<chaspi-header>` or `<chaspi-footer>`:
+
+    <chaspi-header>
+    	<chaspi-row></chaspi-row>
+
+	<chaspi-footer>
+    	<chaspi-row></chaspi-row>
+
+In addition it is internally used by the `<chaspi-grid>` component
+
+### Styling
+
+`<chaspi-row>` provides the following custom properties and mixins
+for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--chaspi-row` | Style of the row | `{}`
+
+-->
+<dom-module id="chaspi-row">
+	<template>
+		<style is="custom-style">
+			:host {
+				display: table-row;
+				@apply(--chaspi-row);
+			}
+		</style>
+		
+		<content></content>
+	
+	</template>
+	<script>
+		Polymer({
+			is : 'chaspi-row'
+		});
+	</script>
+</dom-module>

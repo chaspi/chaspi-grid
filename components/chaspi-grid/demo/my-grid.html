@@ -1,0 +1,87 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../paper-styles/paper-styles.html">
+<link rel="import" href="../chaspi-grid.html">
+
+<style>
+	.font-bold {
+		font-weight: bold;
+	}
+</style>
+
+<dom-module id="my-grid">
+	<template>
+		<style is="custom-style">
+
+			chaspi-cell {
+				padding: 10px;
+			}
+			
+			chaspi-grid {
+				width: 100%;
+				border-collapse: collapse;
+				--chaspi-cell: {
+					padding: 10px;
+				}
+				--chaspi-row: {
+					border-bottom: thin solid var(--paper-grey-500);
+				}
+			}
+			
+		</style>
+
+		<chaspi-grid items="{{items}}">
+			<chaspi-colgroup>
+				<chaspi-col property="first" cell-style="padding-left: 20px;"></chaspi-col>
+				<chaspi-col property="last" cell-renderer="{{lastRenderer}}"></chaspi-col>
+				<chaspi-col property="age" cell-renderer="{{ageRenderer}}" render-html="true" on-tap="handleTap"></chaspi-col>
+			</chaspi-colgroup>
+			<chaspi-header>
+				<chaspi-row>
+					<chaspi-cell>First</chaspi-cell>
+					<chaspi-cell>Last</chaspi-cell>
+					<chaspi-cell>Age</chaspi-cell>
+				</chaspi-row>
+			</chaspi-header>
+			<chaspi-footer>
+				<chaspi-row>
+					<chaspi-cell>Number of people: {{itemSize(items)}}</chaspi-cell>
+					<chaspi-cell></chaspi-cell>
+					<chaspi-cell></chaspi-cell>
+				</chaspi-row>
+			</chaspi-footer>
+		</chaspi-grid>
+
+	</template>
+	<script>
+		Polymer({
+			is : 'my-grid',
+			handleTap : function(event, args) {
+				alert("age: " + args.item.age);
+			},
+			itemSize : function(items) {
+				return items.length
+			},
+			ready : function() {
+				this.items = [
+					{first: 'Ingrid', last: 'Smith', age: 31},
+					{first: 'Sally', last: 'Moll', age: 24},
+					{first: 'Greg', last: 'Deer', age: 19},
+					{first: 'Yan', last: 'Smith', age: 31},
+					{first: 'Silvia', last: 'Johnson', age: 51},
+					{first: 'Bob', last: 'Roober', age: 43}
+				]
+				this.lastRenderer = function(item) {
+					return {
+						content: '<' + item.last + '>'
+					}
+				}
+				this.ageRenderer = function(item) {
+					return {
+						content: '<div>' + item.age + '</div>',
+						class: 'font-bold'
+					}
+				}
+			}
+		});
+	</script>
+</dom-module>

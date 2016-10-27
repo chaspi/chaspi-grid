@@ -1,0 +1,187 @@
+<link rel="import" href="../../ldwebapp/bower_components/polymer/polymer.html">
+
+<!--
+`<chaspi-col>` represents a `<col>` element of a table. In addition to that, for the `chaspi-grid` it 
+represents the column model of the table.
+
+In typical use, the `<chaspi-col>` must be a child of `<chaspi-colgroup>`:
+
+    <chaspi-colgroup>
+    	<chaspi-col></chaspi-col>
+
+-->
+<dom-module id="chaspi-col">
+	<template>
+		<style is="custom-style">
+			:host {
+				display: table-column;
+			}
+		</style>
+
+		<content></content>
+
+	</template>
+	<script>
+		Polymer({
+			is : 'chaspi-col',
+			properties : {
+				/**
+				 * Property of the column. Used to get the column data from the row object.
+				 */
+				property : String,
+
+				/**
+				 * Column width, in pixels.
+				 */
+				width : {
+					type: Number,
+					notify : true,
+					observer : '_widthChanged'
+				},
+
+				/**
+				 * Min column width, in pixels.
+				 */
+				minWidth : {
+					type: Number,
+					notify : true,
+					observer : '_minWidthChanged'
+				},
+
+				/**
+				 * Stlye class to apply to the cell.
+				 */
+				cellClass : String,
+
+				/**
+				 * Stlye to apply to the cell.
+				 */
+				cellStyle : String,
+
+				/**
+				 * The renderer is a function which can provide the content, the style, and the style class for a cell.
+				 *
+				 * @type {{function(*):{content:string, style:text, class:text}}}
+				 */
+				cellRenderer : Object,
+
+				/**
+				 * The renderer could provide html content. By default this content is rendered as plain text.
+				 * To render html, this flag needs to be set to true.
+				 *
+				 * WARNING: potential XSS vulnerability if `html` comes from an untrusted source
+				 */
+				renderHtml : Boolean,
+
+				/**
+				 * Listener to observe tap events from the cell.
+				 *
+				 * @type {{function(HTMLElement,Object)}}
+				 */
+				cellTapListener : Object
+			},
+			_widthChanged : function(width) {
+				this.style.width = width + "px"
+			},
+			_minWidthChanged : function(minWidth) {
+				/*
+				 * On most browsers min-width is not supported on the column itself,
+				 * therefore apply it on column directly.
+				 *
+				 * https://developer.mozilla.org/en-US/docs/Web/CSS/min-width
+				 */
+				// this.style.minWidth = minWidth + "px"
+			},
+
+            /**
+             * Triggers a cell tap event. This method is called from `<chaspi-grid>`.
+             * By default this method fires an `tab` event.
+             *
+             * @param {HTMLElement} target The element which fired the tab event.
+             * @param {*} item The row data.
+             */
+            fireCellTapEvent : function(target, item) {
+                if (this.cellTapListener) {
+                    this.cellTapListener(target, item)
+                }
+				this.fire('tap', {
+					'target': target,
+					'item': item
+				});
+			},
+
+            /**
+             * Returns the cell content by using the given item.
+             *
+             * @param {*} item The row data.
+             * @return {String} the cell content
+             */
+			getCellContent : function(item) {
+				if (this.cellRenderer) {
+					var content = this.cellRenderer(item).content
+					if (content != null) {
+						return content
+					}
+				}
+				return item[this.property]
+			},
+
+            /**
+             * Returns the cell style class by using the given item.
+             *
+             * @param {*} item The row data.
+             * @return {String} the cell style class
+             */
+			getCellClass : function(item) {
+				var styleClasses = ''
+				if (this.cellRenderer) {
+					var styleClass = this.cellRenderer(item)['class']
+					if (styleClass != null) {
+						styleClasses += styleClass
+					}
+				}
+				if (this.cellClass) {
+					styleClasses += (styleClasses ? ' ' : '') + this.cellClass
+				}
+				return styleClasses
+			},
+
+            /**
+             * Returns the cell style by using the given item.
+             *
+             * @param {*} item The row data.
+             * @return {String} the cell style
+             */
+			getCellStyle : function(item) {
+				/*
+				 * On most browsers min-width is not supported on the column itself,
+				 * therefore apply it on column directly.
+				 *
+				 * https://developer.mozilla.org/en-US/docs/Web/CSS/min-width
+				 */
+				var baseStyle = ''
+				if (this.minWidth) {
+					baseStyle += 'min-width:' + this.minWidth + 'px;'
+				}
+				if (this.cellStyle) {
+					baseStyle += this.cellStyle
+				}
+				if (this.cellRenderer) {
+					var style = this.cellRenderer(item).style
+					if (style != null) {
+						return baseStyle + style
+					}		
+				}
+				
+				return baseStyle;
+			}
+            
+            /**
+			 * Fired when the user taps on a cell.
+			 *
+			 * @event tap
+			 * @param {{target:object, item:object}} the target element and the row data.
+			 */
+		});
+	</script>
+</dom-module>

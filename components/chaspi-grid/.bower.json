@@ -1,0 +1,40 @@
+{
+  "name": "chaspi-grid",
+  "homepage": "https://github.com/chaspi/chaspi-grid",
+  "authors": [
+    "Dominik Kaspar <dominik.kaspar@yahoo.de>"
+  ],
+  "description": "simple dynamic table",
+  "main": "chaspi-grid.html",
+  "keywords": [
+    "web-components",
+    "polymer",
+    "grid",
+    "table",
+    "dynamic"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.7.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.1.7"
+  },
+  "_release": "54edcc3721",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "54edcc372138328cc2dbd8561d7cc5b3857fc545"
+  },
+  "_source": "git://github.com/chaspi/chaspi-grid.git",
+  "_target": "master",
+  "_originalSource": "chaspi/chaspi-grid",
+  "_direct": true
+}

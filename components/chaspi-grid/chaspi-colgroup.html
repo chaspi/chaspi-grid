@@ -1,0 +1,29 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="chaspi-col.html">
+
+<!--
+`<chaspi-colgroup>` represents a `<colgroup>` element of a table.
+
+In typical use, the `<chaspi-colgroup>` must be a child of `<chaspi-grid>`:
+
+    <chaspi-grid>
+    	<chaspi-colgroup></chaspi-colgroup>
+
+-->
+<dom-module id="chaspi-colgroup">
+	<template>
+		<style is="custom-style">
+			:host {
+				display: table-column-group;
+			}
+		</style>
+		
+		<content></content>
+	
+	</template>
+	<script>
+		Polymer({
+			is : 'chaspi-colgroup'
+		});
+	</script>
+</dom-module>

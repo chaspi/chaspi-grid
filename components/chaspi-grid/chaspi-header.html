@@ -1,0 +1,29 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`<chaspi-header>` represents a `<thead>` element of a table.
+
+In typical use, the `<chaspi-header>` must be a child of `<chaspi-grid>`:
+
+    <chaspi-grid>
+    	<chaspi-header></chaspi-header>
+
+-->
+<dom-module id="chaspi-header">
+	<template>
+		<style is="custom-style">
+			:host {
+				display: table-header-group;
+				font-weight: bold;
+			}
+		</style>
+		
+		<content></content>
+	
+	</template>
+	<script>
+		Polymer({
+			is : 'chaspi-header'
+		});
+	</script>
+</dom-module>
