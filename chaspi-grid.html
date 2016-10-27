@@ -107,6 +107,7 @@ Custom property | Description | Default
 			}
 			
 			.shadow-row-wrapper {
+				display: table-cell;
 				position: relative;
 				height: 0px;
 				padding: 0;
@@ -129,14 +130,12 @@ Custom property | Description | Default
 
 		<content id="colgroups" select="chaspi-colgroup"></content>
 		<content select="chaspi-header"></content>
-		<chaspi-row>
-			<template is="dom-repeat" as="column" items={{getColumns()}}>
-				<chaspi-cell class="shadow-row-wrapper">
-					<div class="shadow-row"></div>
-				</chaspi-cell>
-			</template>
-		</chaspi-row>
-
+		<template is="dom-repeat" as="column" items={{getColumns()}}>
+			<div class="shadow-row-wrapper">
+				<div class="shadow-row"></div>
+			</div>
+		</template>
+	
 		<div class="tbody">
 			<template is="dom-repeat" items="{{items}}">
 				<chaspi-row>

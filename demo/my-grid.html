@@ -1,35 +1,38 @@
 <link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../paper-styles/paper-styles.html">
 <link rel="import" href="../chaspi-grid.html">
+
+<style>
+	.font-bold {
+		font-weight: bold;
+	}
+</style>
+
 <dom-module id="my-grid">
 	<template>
 		<style is="custom-style">
-			chaspi-header chaspi-cell {
-				background: grey;
+
+			chaspi-cell {
 				padding: 10px;
 			}
 			
 			chaspi-grid {
 				width: 100%;
-				font-family: 'Open Sans';
-				border: thin solid grey;
 				border-collapse: collapse;
 				--chaspi-cell: {
 					padding: 10px;
 				}
 				--chaspi-row: {
-					border-bottom: thin solid grey;
+					border-bottom: thin solid var(--paper-grey-500);
 				}
 			}
 			
-			chaspi-col {
-				border-right: thin solid grey;
-			}
 		</style>
 
 		<chaspi-grid items="{{items}}">
 			<chaspi-colgroup>
-				<chaspi-col property="first" min-width=150 cell-class="a"></chaspi-col>
-				<chaspi-col property="last" cell-renderer="{{lastRenderer}}" cell-style="color:red;"></chaspi-col>
+				<chaspi-col property="first" cell-style="padding-left: 20px;"></chaspi-col>
+				<chaspi-col property="last" cell-renderer="{{lastRenderer}}"></chaspi-col>
 				<chaspi-col property="age" cell-renderer="{{ageRenderer}}" render-html="true" on-tap="handleTap"></chaspi-col>
 			</chaspi-colgroup>
 			<chaspi-header>
@@ -41,13 +44,12 @@
 			</chaspi-header>
 			<chaspi-footer>
 				<chaspi-row>
-					<chaspi-cell>Footer...</chaspi-cell>
+					<chaspi-cell>Number of people: {{itemSize(items)}}</chaspi-cell>
 					<chaspi-cell></chaspi-cell>
 					<chaspi-cell></chaspi-cell>
 				</chaspi-row>
 			</chaspi-footer>
 		</chaspi-grid>
-
 
 	</template>
 	<script>
@@ -56,11 +58,17 @@
 			handleTap : function(event, args) {
 				alert("age: " + args.item.age);
 			},
+			itemSize : function(items) {
+				return items.length
+			},
 			ready : function() {
 				this.items = [
-					{first: 'Bob', last: 'Smith', age: 31},
-					{first: 'Sally', last: 'Johnson', age: 24},
-					{first: 'Greg', last: 'Deer', age: 63}
+					{first: 'Ingrid', last: 'Smith', age: 31},
+					{first: 'Sally', last: 'Moll', age: 24},
+					{first: 'Greg', last: 'Deer', age: 19},
+					{first: 'Yan', last: 'Smith', age: 31},
+					{first: 'Silvia', last: 'Johnson', age: 51},
+					{first: 'Bob', last: 'Roober', age: 43}
 				]
 				this.lastRenderer = function(item) {
 					return {
@@ -70,8 +78,7 @@
 				this.ageRenderer = function(item) {
 					return {
 						content: '<div>' + item.age + '</div>',
-						style: 'font-weight:bold;',
-						class: 'a'
+						class: 'font-bold'
 					}
 				}
 			}
